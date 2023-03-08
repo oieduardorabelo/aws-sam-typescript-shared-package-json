@@ -1,0 +1,29 @@
+{
+    "editor.formatOnSave": true,
+    "yaml.customTags": [
+        "!Ref sequence",
+        "!GetAtt sequence",
+        "!ImportValue sequence",
+        "!Sub sequence",
+        "!If sequence",
+        "!Equals sequence",
+        "!And sequence",
+        "!Or sequence",
+        "!Not sequence",
+        "!FindInMap sequence",
+        "!Base64 sequence",
+        "!Cidr sequence",
+        "!Ref scalar",
+        "!GetAtt scalar",
+        "!ImportValue scalar",
+        "!Sub scalar",
+        "!If scalar",
+        "!Equals scalar",
+        "!And scalar",
+        "!Or scalar",
+        "!Not scalar",
+        "!FindInMap scalar",
+        "!Base64 scalar",
+        "!Cidr scalar"
+    ]
+}

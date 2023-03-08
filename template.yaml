@@ -1,0 +1,67 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Transform: AWS::Serverless-2016-10-31
+
+Description: AWS SAM with TypeScript sharing package.json across lambda functions
+
+Globals:
+    Function:
+        Timeout: 3
+
+Resources:
+    GetMeFunction:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: functions/
+            Handler: get-me.handler
+            Runtime: nodejs18.x
+            Architectures:
+                - x86_64
+            Events:
+                GetMe:
+                    Type: Api
+                    Properties:
+                        Path: /me
+                        Method: get
+        Metadata:
+            BuildMethod: esbuild
+            BuildProperties:
+                Minify: true
+                Target: 'es2020'
+                Sourcemap: true
+                EntryPoints:
+                    - get-me.ts
+
+    GetBooksFunction:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: functions/
+            Handler: get-books.handler
+            Runtime: nodejs18.x
+            Architectures:
+                - x86_64
+            Events:
+                GetBooks:
+                    Type: Api
+                    Properties:
+                        Path: /books
+                        Method: get
+        Metadata:
+            BuildMethod: esbuild
+            BuildProperties:
+                Minify: true
+                Target: 'es2020'
+                Sourcemap: true
+                EntryPoints:
+                    - get-books.ts
+
+Outputs:
+    HelloWorldApi:
+        Description: 'API Gateway endpoint URL for Prod stage for Hello World function'
+        Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/'
+    GetMeFunction:
+        Description: 'Hello World Lambda Function ARN'
+        Value: !GetAtt GetMeFunction.Arn
+    GetMeFunctionIamRole:
+        Description: 'Implicit IAM Role created for Hello World function'
+        Value: !GetAtt GetMeFunctionRole.Arn
